@@ -14,8 +14,9 @@ type VideoInfo struct {
 	DisplayCtime string
 }
 
-type Comments struct {
+type Comment struct {
 	Id string
-	AuthorId string
+	VideoId string
+	Author string
 	Content string
 }

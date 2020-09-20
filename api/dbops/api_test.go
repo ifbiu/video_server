@@ -58,14 +58,13 @@ func testRegetUser(t *testing.T)  {
 	}
 }
 
-func TestComments(t *testing.T){
+func TestComments(t *testing.T) {
 	clearTables()
-	t.Run("AddUser",testAddUser)
-	t.Run("AddComments",testAddComments)
-	t.Run("ListComments",testListComments)
+	t.Run("PrepareUser", testAddUser)
+	t.Run("AddComments", testAddComments)
+	t.Run("ListComments", testListComments)
 }
-
-func TestAddNewComments(t *testing.T) {
+func testAddComments(t *testing.T) {
 	vid := "12345"
 	aid := 1
 	content := "I like this video"
@@ -75,15 +74,15 @@ func TestAddNewComments(t *testing.T) {
 	}
 }
 
-func TestListComments(t *testing.T) {
+func testListComments(t *testing.T) {
 	vid := "123456"
 	from := 1514764800
-	to,_ := strconv.Atoi(strconv.FormInt(time.Now().UnixNano()/1000000000,10))
+	to,_ := strconv.Atoi(strconv.FormatInt(time.Now().UnixNano()/1000000000,10))
 	res,err := ListComments(vid,from,to)
 	if err != nil {
 		t.Errorf("Error of ListComments: %v",err)
 	}
 	for i, ele := range res {
-		fmt.Printf("comment: %d,%v \n",i,ele)
+		fmt.Printf("comment: %d, %v \n", i, ele)
 	}
 }

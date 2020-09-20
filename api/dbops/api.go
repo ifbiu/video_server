@@ -82,7 +82,7 @@ func AddNewComments(vid string,aid int, content string) error  {
 	if err != nil {
 		return err
 	}
-	stmIns, err := dbConn.Prepare("INSERT INTO comments (id,video_id,author_id,content) values (?,?,?,?)")
+	stmtIns, err := dbConn.Prepare("INSERT INTO comments (id,video_id,author_id,content) values (?,?,?,?)")
 	if err != nil {
 		return err
 	}
@@ -90,11 +90,11 @@ func AddNewComments(vid string,aid int, content string) error  {
 	if err != nil {
 		return err
 	}
-	defer stmIns.Close()
+	defer stmtIns.Close()
 	return nil
 }
 
-func ListComments(vid string,  from,to int) ([]*defs.Comment,error) {
+func ListComments(vid string, from, to int) ([]*defs.Comment, error) {
 	stmtOut, err := dbConn.Prepare(`
 		SELECT comments.id,users,Login_name,comments.content FROM comment
 		INNER JOIN users ON comments.author_id = user.id
@@ -115,7 +115,7 @@ func ListComments(vid string,  from,to int) ([]*defs.Comment,error) {
 		res = append(res, c)
 	}
 
-	defer stmtIns.Close()
+	defer stmtOut.Close()
 	return res, nil
 
 }
